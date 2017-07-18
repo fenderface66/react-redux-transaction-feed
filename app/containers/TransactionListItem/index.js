@@ -15,23 +15,43 @@ import TransactionData from './TransactionData';
 import Wrapper from './Wrapper';
 import Span from 'components/Span';
 import EmotionBar from 'containers/EmotionBar'
+import Emoji from './emoji';
 
 export class transactionListItem extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   
   constructor(props) {
     super(props);
     this.state = {
-      amount: ''
+      amount: '',
+      emotion: this.props.item.emotion,
+      emotionExists: false
     }
   }
   
   componentDidMount() {
-    const currencyCodes = [['GBP', '£'], ['USD', '$'], ['EUR', '€']];
-    this.getCurrencyString(currencyCodes, this.props.item)
+    
+    this.getCurrencyString(this.props.item);
+    this.emotionToEmoji(this.props.item.emotion);
+    
   }
   
   //Format amount from data
-  getCurrencyString(codeList, item) {
+  emotionToEmoji(emotion) {
+    const emojiDictionary = [['love', String.fromCodePoint(0x1F60D)], ['joy', String.fromCodePoint(0x1F604)], ['hate', String.fromCodePoint(0x1F60D)], ['surprise', String.fromCodePoint(0x1F631)]];
+    
+    emojiDictionary.map((arr) => {
+      if (emotion === arr[0]) {
+        this.setState({
+          emotion: arr[1]
+        })
+      }
+    })
+  }
+  
+  //Format amount from data
+  getCurrencyString(item) {
+    const currencyCodes = [['GBP', '£'], ['USD', '$'], ['EUR', '€']];
+    
     var currencyString
     var negativeNumber = false;
     
@@ -40,11 +60,10 @@ export class transactionListItem extends React.PureComponent { // eslint-disable
       negativeNumber = true;
     }
     
-    codeList.map((code) => {
+    currencyCodes.map((code) => {
       if (item.currency === code[0]) {
         
         if (negativeNumber) {
-          console.log(currencyString);
           currencyString = '-' + code[1] + currencyString[1];
         } else {
           currencyString = code[1] + item.amount.toString();
@@ -73,6 +92,12 @@ export class transactionListItem extends React.PureComponent { // eslint-disable
         <TransactionData>
           <Span>
             {item.description}
+          </Span>
+          <Span className="emoji">
+            Feeling:
+            <Emoji>
+              {this.state.emotion}
+            </Emoji>
           </Span>
           <Span className={amountClass}>
             {this.state.amount}

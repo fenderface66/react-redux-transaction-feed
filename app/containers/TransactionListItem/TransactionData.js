@@ -9,6 +9,18 @@ const TransactionData = styled.div`
   align-items: center;
   justify-content: space-between;
   text-decoration: none;
+  .emoji {
+    margin-left: auto;
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+    
+  }
+
+  .price {
+    min-width: 80px;
+    text-align: right;
+  }
 `;
 
 export default TransactionData;

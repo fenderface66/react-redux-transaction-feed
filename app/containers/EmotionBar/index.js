@@ -7,6 +7,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import EmotionBarStyle from './EmotionBarStyle';
 
 
 export class EmotionBar extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -22,25 +23,19 @@ export class EmotionBar extends React.PureComponent { // eslint-disable-line rea
   render() {
     return (
       
-      <div className="emotion-bar">
+      <EmotionBarStyle>
         <ul className="no-list">
           <li>
-            😀
+            &#x1F60D;
           </li>
           <li>
-            😐
+            &#x1F604;
           </li>
           <li>
-            😥
-          </li>
-          <li>
-            😫
-          </li>
-          <li>
-            😡
+            &#x1F621;
           </li>
         </ul>
-      </div>
+      </EmotionBarStyle>
     
     )
   }
