@@ -5,5 +5,5 @@ const Emoji = styled.span`
   min-width: 50px;
   margin-left: 5px;
 `;
-
+ 
 export default Emoji;

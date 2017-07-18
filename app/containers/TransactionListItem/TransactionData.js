@@ -16,7 +16,7 @@ const TransactionData = styled.div`
     align-items: center;
     
   }
-
+ 
   .price {
     min-width: 80px;
     text-align: right;

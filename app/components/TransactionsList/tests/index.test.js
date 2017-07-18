@@ -5,12 +5,12 @@ import { IntlProvider } from 'react-intl';
 import transactionListItem from 'containers/transactionListItem';
 import List from 'components/List';
 import LoadingIndicator from 'components/LoadingIndicator';
-import ReposList from '../index';
+import TransactionsList from '../index';
 
-describe('<ReposList />', () => {
+describe('<TransactionsList />', () => {
   it('should render the loading indicator when its loading', () => {
     const renderedComponent = shallow(
-      <ReposList loading />
+      <TransactionsList loading />
     );
     expect(renderedComponent.contains(<List component={LoadingIndicator} />)).toEqual(true);
   });
@@ -18,7 +18,7 @@ describe('<ReposList />', () => {
   it('should render an error if loading failed', () => {
     const renderedComponent = mount(
       <IntlProvider locale="en">
-        <ReposList
+        <TransactionsList
           loading={false}
           error={{ message: 'Loading failed!' }}
         />
@@ -38,7 +38,7 @@ describe('<ReposList />', () => {
       full_name: 'react-boilerplate/react-boilerplate',
     }];
     const renderedComponent = shallow(
-      <ReposList
+      <TransactionsList
         repos={repos}
         error={false}
       />
@@ -49,7 +49,7 @@ describe('<ReposList />', () => {
 
   it('should not render anything if nothing interesting is provided', () => {
     const renderedComponent = shallow(
-      <ReposList
+      <TransactionsList
         repos={false}
         error={false}
         loading={false}

@@ -5,7 +5,9 @@ import ListItem from 'components/ListItem';
 import LoadingIndicator from 'components/LoadingIndicator';
 import transactionListItem from 'containers/transactionListItem';
 
-function ReposList({ loading, error, repos }) {
+function TransactionsList({ loading, error, transactions }) {
+
+  
   if (loading) {
     return <List component={LoadingIndicator} />;
   }
@@ -17,17 +19,17 @@ function ReposList({ loading, error, repos }) {
     return <List component={ErrorComponent} />;
   }
 
-  if (repos !== false) {
-    return <List items={repos} component={transactionListItem} />;
+  if (transactions !== false) {
+    return <List items={transactions} component={transactionListItem} />;
   }
 
   return null;
 }
 
-ReposList.propTypes = {
+TransactionsList.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.any,
-  repos: PropTypes.any,
+  transactions: PropTypes.any,
 };
 
-export default ReposList;
+export default TransactionsList;

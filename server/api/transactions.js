@@ -12,6 +12,10 @@ exports.getTransactions = function(req, res, next) {
     obj = JSON.parse(data);
     res.send(obj);
   });
+}
+
+exports.updateEmotion = function(req, res, next) {
+  console.log(req.query);
 
 }
 

@@ -10,3 +10,4 @@ export const LOAD_TRANSACTIONS = 'react-redux-transactions/Home/LOAD_TRANSACTION
 export const LOAD_TRANSACTIONS_SUCCESS = 'react-redux-transactions/Home/LOAD_TRANSACTIONS_SUCCESS';
 export const LOAD_TRANSACTIONS_ERROR = 'react-redux-transactions/Home/LOAD_TRANSACTIONS_ERROR';
 export const DEFAULT_LOCALE = 'en';
+export const CHANGE_EMOTION = 'react-redux-transactions/EmotionBar/CHANGE_EMOTION';

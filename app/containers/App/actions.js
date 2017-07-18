@@ -2,23 +2,17 @@
  * App Actions
  *
  * Actions change things in your application
- * Since this boilerplate uses a uni-directional data flow, specifically redux,
+ * Since this app uses a uni-directional data flow, specifically redux,
  * we have these actions which are the only way your application interacts with
  * your application state. This guarantees that your state is up to date and nobody
  * messes it up weirdly somewhere.
- *
- * To add a new Action:
- * 1) Import your constant
- * 2) Add a function like this:
- *    export function yourAction(var) {
- *        return { type: YOUR_ACTION_CONSTANT, var: var }
- *    }
  */
 
 import {
   LOAD_TRANSACTIONS,
   LOAD_TRANSACTIONS_SUCCESS,
   LOAD_TRANSACTIONS_ERROR,
+  CHANGE_EMOTION
 } from './constants';
 
 /**
@@ -40,10 +34,10 @@ export function loadTransactions() {
  *
  * @return {object}      An action object with a type of LOAD_TRANSACTIONS_SUCCESS passing the repos
  */
-export function transactionsLoaded(repos, username) {
+export function transactionsLoaded(transactions, username) {
   return {
     type: LOAD_TRANSACTIONS_SUCCESS,
-    repos,
+    transactions,
     username,
   };
 }
@@ -61,3 +55,18 @@ export function transactionLoadingError(error) {
     error,
   };
 }
+
+/**
+ * Dispatched when emotion has been changed
+ *
+ * @param  {object} emotion The chosen emotion
+ *
+ */
+export function changeEmotion(emotion) {
+  console.log(emotion);
+  return {
+    type: CHANGE_EMOTION,
+    emotion
+  };
+}
+
