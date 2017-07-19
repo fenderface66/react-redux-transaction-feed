@@ -62,11 +62,10 @@ export function transactionLoadingError(error) {
  * @param  {object} emotion The chosen emotion
  *
  */
-export function changeEmotion(emotion) {
-  console.log(emotion);
+export function changeEmotion(emotionData) {
   return {
     type: CHANGE_EMOTION,
-    emotion
+    emotionData
   };
 }
 

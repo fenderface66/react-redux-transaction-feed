@@ -10,3 +10,4 @@
  */
 
 export const CHANGE_USERNAME = 'react-redux-transactions/Home/CHANGE_USERNAME';
+export const TOGGLE_EMOTIONBAR = 'react-redux-transactions/Home/TOGGLE_EMOTIONBAR';

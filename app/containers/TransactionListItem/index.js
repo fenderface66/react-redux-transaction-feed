@@ -8,78 +8,61 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { FormattedNumber } from 'react-intl';
-
-import { makeSelectCurrentUser } from 'containers/App/selectors';
 import ListItem from 'components/ListItem';
 import TransactionData from './TransactionData';
 import Wrapper from './Wrapper';
 import Span from 'components/Span';
 import EmotionBar from 'containers/EmotionBar';
 import Emoji from './Emoji';
-import RequestEmotion from './RequestEmotion'
+import RequestEmotion from './RequestEmotion';
+import { toggleEmotionBar } from 'containers/HomePage/actions';
+import { makeSelectShowEmotionBar } from 'containers/HomePage/selectors';
 
 export class transactionListItem extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   
-  
-  
   constructor(props) {
     super(props);
-    
     this.state = {
       amount: '',
       emotion: this.props.item.emotion,
       emotionExists: false,
       showEmotionBar: false
     }
-    this.toggleEmotionBar = this.toggleEmotionBar.bind(this);
+
   }
   
   componentDidMount() {
     
     this.getCurrencyString(this.props.item);
-    this.emotionToEmoji(this.props.item.emotion);
+    
   }
   
   //Format amount from data
   emotionToEmoji(emotion) {
-    const emojiDictionary = [['love', String.fromCodePoint(0x1F60D)], ['joy', String.fromCodePoint(0x1F604)], ['hate', String.fromCodePoint(0x1F60D)], ['surprise', String.fromCodePoint(0x1F631)]];
-    
+    var emojiDictionary = [['love', String.fromCodePoint(0x1F60D)], ['joy', String.fromCodePoint(0x1F604)], ['hate', String.fromCodePoint(0x1F621)], ['surprise', String.fromCodePoint(0x1F631)]];
+    var emoji;
     emojiDictionary.map((arr) => {
       if (emotion === arr[0]) {
-        this.setState({
-          emotion: arr[1]
-        })
+        emoji = arr[1];
       }
     })
+    return emoji;
   }
   
-  
-  toggleEmotionBar() {
-    if (!this.state.showEmotionBar) {
-      console.log('here');
-      this.setState({
-        showEmotionBar: true
-      })
-    } else {
-      this.setState({
-        showEmotionBar: false
-      })
-    }
-  }
   
   //Ask for user emotion if not present
-  requestEmotion(emotion) {
+  requestEmotion(emotion, emoji) {
     if (emotion === '') {
       return (
-        <RequestEmotion onClick={this.toggleEmotionBar}>Add Emotion</RequestEmotion>
+        <RequestEmotion onClick={() => this.props.toggleEmotionBar(this.props.item.id, true)}>Add Emotion</RequestEmotion>
       ) 
     } else {
       return (
-        <Span className="emoji">
+        <span onClick={() => this.props.toggleEmotionBar(this.props.item.id, true)} className="emoji-wrapper">
           <Emoji>
-            {this.state.emotion}
+            {emoji}
           </Emoji>
-        </Span>
+        </span>
       )
     }
   }
@@ -111,16 +94,36 @@ export class transactionListItem extends React.PureComponent { // eslint-disable
       }
     })
   }
-  
-  render() {
-    const item = this.props.item;
-    var amountClass
+
+  checkToggleState(item) {
+    var showEmotionBar = false;
+    
+    if (this.props.showEmotionBar.id === item.id && this.props.showEmotionBar.toggleState) {
+      console.log('toggled');
+      showEmotionBar = true;
+    }
+    
+    return showEmotionBar;
+  }
+
+  getAmountClass(item) {
+    var amountClass;
     
     if (item.amount < 0) {
       amountClass = "price negative";
     } else {
       amountClass = "price positive";
     }
+    return amountClass;
+  }
+  
+  render() {
+    
+    const item = this.props.item;
+    var amountClass = this.getAmountClass(item)
+    var showEmotionBar = this.checkToggleState(item);
+    var emoji = this.emotionToEmoji(item.emotion);
+    console.log(showEmotionBar);
     
     // Put together the content of the repository          
     var content = (
@@ -129,12 +132,12 @@ export class transactionListItem extends React.PureComponent { // eslint-disable
           <Span>
             {item.description}
           </Span>
-          {this.requestEmotion(item.emotion)}
+          {this.requestEmotion(item.emotion, emoji)}
           <Span className={amountClass}>
             {this.state.amount}
           </Span>
         </TransactionData>
-        <EmotionBar show={this.state.showEmotionBar}></EmotionBar>
+        <EmotionBar id={this.props.item.id} show={showEmotionBar} emotion={this.props.item.emotion}></EmotionBar>
       </Wrapper>
 
     );
@@ -147,8 +150,20 @@ export class transactionListItem extends React.PureComponent { // eslint-disable
 }
 
 transactionListItem.propTypes = {
-  item: React.PropTypes.object
+  item: React.PropTypes.object,
+  showEmotionBar: React.PropTypes.object,
 };
 
-export default connect(createStructuredSelector({
-}))(transactionListItem);
+export function mapDispatchToProps(dispatch) {
+  return {
+    toggleEmotionBar: (itemId, force) => {
+      dispatch(toggleEmotionBar(itemId, force));
+    },
+  };
+}
+
+const mapStateToProps = createStructuredSelector({
+  showEmotionBar: makeSelectShowEmotionBar()
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(transactionListItem);

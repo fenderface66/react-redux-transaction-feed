@@ -9,4 +9,6 @@ const Wrapper = styled.div`
   position: relative;
 `;
 
+console.log(Wrapper);
+
 export default Wrapper;

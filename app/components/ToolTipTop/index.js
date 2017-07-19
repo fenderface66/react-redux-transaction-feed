@@ -12,8 +12,8 @@ const ToolTipTop = styled.div`
   border-color: transparent transparent #DDDDDD transparent;
   position: absolute;
   top: -15px;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 50%;   
+  transform: translateX(-50%);       
 `;
 
 export default ToolTipTop;

@@ -11,7 +11,18 @@ const makeSelectUsername = () => createSelector(
   (homeState) => homeState.get('username')
 );
 
+const makeSelectShowEmotionBar = () => createSelector(
+  selectHome,
+  (homeState) => {
+    return {
+      id: homeState.getIn(['showEmotionBar', 'id']),
+      toggleState: homeState.getIn(['showEmotionBar', 'toggleState'])
+    }
+  }
+);
+
 export {
   selectHome,
   makeSelectUsername,
+  makeSelectShowEmotionBar
 };

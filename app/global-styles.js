@@ -38,8 +38,16 @@ injectGlobal`
     }
   }
 
-  .emotion-bar {
-    
+  .tooltip-top {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 15px 15px 15px;
+    border-color: transparent transparent #DDDDDD transparent;
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);    
   }
 
   .no-list {

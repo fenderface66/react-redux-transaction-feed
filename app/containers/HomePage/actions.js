@@ -10,6 +10,7 @@
 
 import {
   CHANGE_USERNAME,
+  TOGGLE_EMOTIONBAR
 } from './constants';
 
 /**
@@ -23,5 +24,15 @@ export function changeUsername(name) {
   return {
     type: CHANGE_USERNAME,
     name,
+  };
+}
+
+export function toggleEmotionBar(item_id, force) {
+  console.log('running toggle action');
+  console.log(item_id);
+  return {
+    type: TOGGLE_EMOTIONBAR,
+    item_id,
+    force
   };
 }

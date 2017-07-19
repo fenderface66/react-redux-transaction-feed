@@ -9,12 +9,11 @@ const TransactionData = styled.div`
   align-items: center;
   justify-content: space-between;
   text-decoration: none;
-  .emoji {
+  .emoji-wrapper {
     margin-left: auto;
     margin-right: 20px;
     display: flex;
     align-items: center;
-    
   }
  
   .price {

@@ -23,7 +23,12 @@ const makeSelectTransactions = () => createSelector(
 
 const makeSelectEmotion = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.get('emotion')
+  (globalState) => globalState.get('emotionData')
+);
+
+const makeSelectHideEmotionBar = () => createSelector(
+  selectGlobal,
+  (globalState) => globalState.get('hideEmotionBar')
 );
 
 const makeSelectLocationState = () => {
@@ -49,5 +54,6 @@ export {
   makeSelectError,
   makeSelectTransactions,
   makeSelectLocationState,
-  makeSelectEmotion
+  makeSelectEmotion,
+  makeSelectHideEmotionBar
 };

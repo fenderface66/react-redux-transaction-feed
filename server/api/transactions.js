@@ -15,7 +15,21 @@ exports.getTransactions = function(req, res, next) {
 }
 
 exports.updateEmotion = function(req, res, next) {
-  console.log(req.query);
-
+  fs.readFile(path.join(__dirname, 'model/transactions.json'), function (err, data) {
+    var obj
+    obj = JSON.parse(data);
+    obj.map(function(transaction) {
+      if (transaction.id === req.query.id) {
+        transaction.emotion = req.query.emotion;
+      }
+    })
+    
+    fs.writeFile(path.join(__dirname, 'model/transactions.json'), JSON.stringify(obj), function (err) {
+      if (err) return console.log(err);
+      console.log('writing to ' + path.join(__dirname, 'model/transactions.json'));
+      res.send(obj);
+    });
+    
+  });
 }
 

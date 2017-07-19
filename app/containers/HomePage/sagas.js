@@ -9,7 +9,8 @@ import { transactionsLoaded, transactionLoadingError } from 'containers/App/acti
 import { CHANGE_EMOTION } from 'containers/App/constants';
 import { makeSelectEmotion } from 'containers/App/selectors';
 import request from 'utils/request';
-import { makeSelectUsername } from 'containers/HomePage/selectors';
+import { makeSelectUsername, makeSelectShowEmotionBar } from 'containers/HomePage/selectors';
+import { toggleEmotionBar } from 'containers/HomePage/actions';
 
 /**
  * Transaction request/response handler
@@ -17,7 +18,9 @@ import { makeSelectUsername } from 'containers/HomePage/selectors';
 export function* getTransactions() {
   // Select username from store
   const requestURL = 'http://localhost:3000/api/getTransactions';
-
+  
+  
+  
   try {
     // Call our request helper (see 'utils/request')
     const transactions = yield call(request, requestURL);
@@ -35,15 +38,18 @@ export function* updateEmotion() {
   console.log('running');
   
   // Select emotion from store
-  const emotion = yield select(makeSelectEmotion());
-  console.log(emotion);
+  const itemEmotion = yield select(makeSelectEmotion());
+  console.log(itemEmotion);
   
-  const requestURL = `http://localhost:3000/api/updateEmotion?emotion=${emotion}`;
+  const requestURL = `http://localhost:3000/api/updateEmotion?emotion=${itemEmotion.emotion}&id=${itemEmotion.id}`;
 
   try {
     // Call our request helper (see 'utils/request')
     const transactions = yield call(request, requestURL);
+    yield put(transactionsLoaded(transactions));
+    yield put(toggleEmotionBar(itemEmotion.id));
   } catch (err) {
+    yield put(transactionLoadingError(err));
   }
 }
 

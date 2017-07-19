@@ -23,8 +23,7 @@ import {
 const initialState = fromJS({
   loading: false,
   error: false,
-  currentUser: false,
-  emotion: '',
+  id: '',
   userData: {
     transactions: false,
   },
@@ -47,9 +46,9 @@ function appReducer(state = initialState, action) {
         .set('error', action.error)
         .set('loading', false);
     case CHANGE_EMOTION:
-      console.log(action);
       return state
-        .set('emotion', action.emotion)
+        .set('emotionData', action.emotionData);
+        
     default:
       return state;
   }
