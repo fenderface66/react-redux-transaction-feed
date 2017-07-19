@@ -11,6 +11,11 @@ const makeSelectTransactionFilter = () => createSelector(
   (homeState) => homeState.get('transactionFilter')
 );
 
+const makeSelectFilteredItems = () => createSelector(
+  selectHome,
+  (homeState) => homeState.get('filteredItems')
+);
+
 const makeSelectFilterType = () => createSelector(
   selectHome,
   (homeState) => homeState.get('filterType')
@@ -31,5 +36,6 @@ export {
   makeSelectUsername,
   makeSelectShowEmotionBar,
   makeSelectTransactionFilter,
-  makeSelectFilterType
+  makeSelectFilterType,
+  makeSelectFilteredItems
 };

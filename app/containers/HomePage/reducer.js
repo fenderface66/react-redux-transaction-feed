@@ -15,7 +15,8 @@ import {
   CHANGE_USERNAME,
   TOGGLE_EMOTIONBAR,
   FILTER_TRANSACTIONS,
-  CHANGE_FILTERTYPE
+  CHANGE_FILTERTYPE,
+  FILTERS_CREATED
 } from './constants';
 
 // The initial state of the App
@@ -26,7 +27,8 @@ const initialState = fromJS({
   showEmotionBar: {
     id: '',
     toggleState: false
-  }
+  },
+  fitleredItems: []
 });
 
 function homeReducer(state = initialState, action) {
@@ -56,9 +58,13 @@ function homeReducer(state = initialState, action) {
         .set('filterType', action.filterType)
       
     case FILTER_TRANSACTIONS:
-      
+      console.log(action);
       return state
         .set('transactionFilter', action.filter)
+    case FILTERS_CREATED:
+
+    return state
+      .set('filteredItems', action.filteredItems)
       
     default:
       return state;

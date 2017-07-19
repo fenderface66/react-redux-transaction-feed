@@ -9,8 +9,11 @@ function List(props) {
 
   // If we have items, render them
   if (props.items) {
+    
+    console.log(props);
+      
     content = props.items.map((item, index) => (
-      <ComponentToRender key={`item-${index}`} item={item} />
+      <ComponentToRender key={`item-${index}`} item={item} filteredItems={props.filteredItems}/>
     ));
   } else {
     // Otherwise render a single component
@@ -29,6 +32,7 @@ function List(props) {
 List.propTypes = {
   component: React.PropTypes.func.isRequired,
   items: React.PropTypes.array,
+  filteredItems: React.PropTypes.array,
 };
 
 export default List;

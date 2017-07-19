@@ -16,7 +16,8 @@ import EmotionBar from 'containers/EmotionBar';
 import Emoji from './Emoji';
 import RequestEmotion from './RequestEmotion';
 import { toggleEmotionBar } from 'containers/HomePage/actions';
-import { makeSelectShowEmotionBar } from 'containers/HomePage/selectors';
+import { makeSelectShowEmotionBar, makeSelectFilteredItems } from 'containers/HomePage/selectors';
+
 
 export class transactionListItem extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   
@@ -116,6 +117,23 @@ export class transactionListItem extends React.PureComponent { // eslint-disable
     }
     return amountClass;
   }
+
+  showItem(itemId) {
+    var show = '';
+    
+    if (this.props.filteredItems === undefined) {
+      return 'open';
+    }
+    
+    this.props.filteredItems.map((filterId) => {
+      if (itemId === filterId.id) {
+        show = 'open';
+        console.log('MATCH');
+      }
+    })
+    
+    return show;
+  }
   
   render() {
     
@@ -123,11 +141,12 @@ export class transactionListItem extends React.PureComponent { // eslint-disable
     var amountClass = this.getAmountClass(item)
     var showEmotionBar = this.checkToggleState(item);
     var emoji = this.emotionToEmoji(item.emotion);
-    console.log(showEmotionBar);
+    var showItem = this.showItem(item.id);
+    console.log(showItem);
     
     // Put together the content of the repository          
     var content = (
-      <Wrapper>
+      <Wrapper className={showItem}>
         <TransactionData>
           <Span>
             {item.description}
@@ -144,7 +163,7 @@ export class transactionListItem extends React.PureComponent { // eslint-disable
 
     // Render the content into a list item
     return (
-      <ListItem key={`transaction-list-item-${item.id}`} item={content} />
+      <ListItem key={`transaction-list-item-${item.id}`} item={content} showClass={showItem}/>
     );
   }
 }
@@ -152,6 +171,7 @@ export class transactionListItem extends React.PureComponent { // eslint-disable
 transactionListItem.propTypes = {
   item: React.PropTypes.object,
   showEmotionBar: React.PropTypes.object,
+  filteredItems: React.PropTypes.array
 };
 
 export function mapDispatchToProps(dispatch) {
@@ -163,7 +183,8 @@ export function mapDispatchToProps(dispatch) {
 }
 
 const mapStateToProps = createStructuredSelector({
-  showEmotionBar: makeSelectShowEmotionBar()
+  showEmotionBar: makeSelectShowEmotionBar(),
+  filteredItems: makeSelectFilteredItems()
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(transactionListItem);

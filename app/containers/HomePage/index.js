@@ -21,7 +21,7 @@ import SelectInput from './SelectInput';
 import Section from './Section';
 import messages from './messages';
 import { loadTransactions } from '../App/actions';
-import { makeSelectTransactionFilter, makeSelectFilterType } from './selectors';
+import { makeSelectTransactionFilter, makeSelectFilterType, makeSelectFilteredItems } from './selectors';
 import { filterTransactions, changeFilterType } from './actions';
 
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -40,45 +40,79 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
   
   filterSwitch() {
     
-    if (this.props.filterType === 'description') {
-      return(
-        <fieldset>
-        <FormattedMessage {...messages.trymeMessage} />
+    switch(this.props.filterType) {
+      case 'description':
+        return(
+          <fieldset>
+          <FormattedMessage {...messages.trymeMessage} />
 
-          <Input
-            id="description-filter"
-            type="text"
-            placeholder="TFL"
-            value={this.props.filter}
-            onChange={this.props.onfilterTransactions}
-          />
-        
-        </fieldset>
-      )
-    } else {
-      return (
-        <fieldset>
-          <SelectInput name="emotion-filter" onChange={this.props.onfilterTransactions}>
-            <option>Please Select Emotion</option>
-            <option value="love">Love</option>
-            <option value="hate">Hate</option>
-            <option value="joy">Joy</option>
-            <option value="surpirse">Surprise</option>
-          </SelectInput>
-        </fieldset>
-      )
+            <Input
+              id="description-filter"
+              type="text"
+              placeholder="TFL"
+              value={this.props.filter}
+              onChange={this.props.onfilterTransactions}
+            />
+
+          </fieldset>
+        )
+        break;
+      case 'emotion':
+        return (
+          <fieldset>
+            <label>Select an Emotion</label>
+            <SelectInput name="emotion-filter" onChange={this.props.onfilterTransactions}>
+              <option value='all'>Please Select Emotion</option>
+              <option value="love">Love</option>
+              <option value="hate">Hate</option>
+              <option value="joy">Joy</option>
+              <option value="surpirse">Surprise</option>
+            </SelectInput>
+          </fieldset>
+        )
+        break;
+      case 'both':
+          return (
+              <div>
+                <fieldset>
+                  <FormattedMessage {...messages.trymeMessage} />
+
+                    <Input
+                      id="description-filter"
+                      type="text"
+                      placeholder="TFL"
+                      value={this.props.filter}
+                    />
+
+                </fieldset> 
+                <fieldset>
+                  <label>Select an Emotion</label>
+                  <SelectInput name="emotion-filter">
+
+                    <option value='all'>Please Select Emotion</option>
+                    <option value="love">Love</option>
+                    <option value="hate">Hate</option>
+                    <option value="joy">Joy</option>
+                    <option value="surpirse">Surprise</option>
+                  </SelectInput>
+                </fieldset>
+                <input type="submit" value="Filter" />
+              </div>
+          
+          )
+        break
     }
+  
   }
 
   render() {
-    const { loading, error, transactions } = this.props;
+    const { loading, error, transactions, filteredItems } = this.props;
     const transactionsListProps = {
       loading,
       error,
       transactions,
+      filteredItems
     };
-    
-    console.log(this.props.filterType);
     
     return (
       <article>
@@ -101,15 +135,20 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
             <H2>
               <FormattedMessage {...messages.trymeHeader} />
             </H2>
-            <Form onSubmit={this.props.onSubmitForm}>
-      
+            <Form>
+                
                 <fieldset>
+                  <label>Select a filter type</label>
                   <SelectInput name="filter-type" onChange={this.props.onChangeFilterType}>
                     <option value="description">Description</option>
                     <option value="emotion">Emotion</option>
+                    <option value="both">Both</option>
                   </SelectInput>
                 </fieldset>
-                {this.filterSwitch()}
+                
+            </Form>
+            <Form onSubmit={this.props.onfilterTransactions}>
+              {this.filterSwitch()}
             </Form>
             <TransactionsList {...transactionsListProps} />
           </Section>
@@ -142,7 +181,21 @@ export function mapDispatchToProps(dispatch) {
     
     onChangeFilterType: (evt) => dispatch(changeFilterType(evt.target.value)),
     
-    onfilterTransactions: (evt) => dispatch(filterTransactions(evt.target.value)),
+    onfilterTransactions: (evt) => {
+      if (evt !== undefined && evt.preventDefault) evt.preventDefault();
+      
+      if (evt.target.tagName === 'FORM')  {
+        dispatch(filterTransactions({
+          description: evt.target.querySelector('input').value,
+          emotion: evt.target.querySelector('select').value
+        }))
+      } else {
+        dispatch(filterTransactions(evt.target.value))
+      }
+      
+      console.log(this);
+      
+    }
   };
 }
 
@@ -151,7 +204,8 @@ const mapStateToProps = createStructuredSelector({
   loading: makeSelectLoading(),
   error: makeSelectError(),
   transactionFilter: makeSelectTransactionFilter(),
-  filterType: makeSelectFilterType()
+  filterType: makeSelectFilterType(),
+  filteredItems: makeSelectFilteredItems()
 });
 
 // Wrap the component to inject dispatch and state into it

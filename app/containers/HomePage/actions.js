@@ -18,6 +18,7 @@ import {
 
 
 export function filterTransactions(filter) {
+  console.log(filter);
   return {
     type: FILTER_TRANSACTIONS,
     filter,
@@ -28,6 +29,14 @@ export function changeFilterType(filterType) {
   return {
     type: CHANGE_FILTERTYPE,
     filterType,
+  };
+}
+
+export function filtersCreated(filteredItems) {
+  console.log(filteredItems);
+  return {
+    type: FILTERS_CREATED,
+    filteredItems,
   };
 }
 

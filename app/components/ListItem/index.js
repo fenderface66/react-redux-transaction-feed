@@ -4,8 +4,10 @@ import Item from './Item';
 import Wrapper from './Wrapper';
 
 function ListItem(props) {
+  
+  
   return (
-    <Wrapper>
+    <Wrapper className={props.showClass}>
       <Item>
         {props.item}
       </Item>
@@ -15,6 +17,7 @@ function ListItem(props) {
 
 ListItem.propTypes = {
   item: React.PropTypes.any,
+  filteredItems: React.PropTypes.array,
 };
 
 export default ListItem;
