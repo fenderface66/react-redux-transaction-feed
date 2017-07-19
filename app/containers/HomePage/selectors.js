@@ -6,9 +6,14 @@ import { createSelector } from 'reselect';
 
 const selectHome = (state) => state.get('home');
 
-const makeSelectUsername = () => createSelector(
+const makeSelectTransactionFilter = () => createSelector(
   selectHome,
-  (homeState) => homeState.get('username')
+  (homeState) => homeState.get('transactionFilter')
+);
+
+const makeSelectFilterType = () => createSelector(
+  selectHome,
+  (homeState) => homeState.get('filterType')
 );
 
 const makeSelectShowEmotionBar = () => createSelector(
@@ -24,5 +29,7 @@ const makeSelectShowEmotionBar = () => createSelector(
 export {
   selectHome,
   makeSelectUsername,
-  makeSelectShowEmotionBar
+  makeSelectShowEmotionBar,
+  makeSelectTransactionFilter,
+  makeSelectFilterType
 };

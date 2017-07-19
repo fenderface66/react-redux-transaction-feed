@@ -13,12 +13,16 @@ import { fromJS } from 'immutable';
 
 import {
   CHANGE_USERNAME,
-  TOGGLE_EMOTIONBAR
+  TOGGLE_EMOTIONBAR,
+  FILTER_TRANSACTIONS,
+  CHANGE_FILTERTYPE
 } from './constants';
 
 // The initial state of the App
 const initialState = fromJS({
-  username: '',
+  transactionFilter: '',
+  filterType: 'description',
+  transactionFilter: '',
   showEmotionBar: {
     id: '',
     toggleState: false
@@ -26,8 +30,6 @@ const initialState = fromJS({
 });
 
 function homeReducer(state = initialState, action) {
-  console.log('This is the action');
-  console.log(action);
   switch (action.type) {
     case CHANGE_USERNAME:
 
@@ -46,7 +48,17 @@ function homeReducer(state = initialState, action) {
           .setIn(['showEmotionBar', 'toggleState'], !state.getIn(['showEmotionBar', 'toggleState']));
       }
       
+    case CHANGE_FILTERTYPE:
+      console.log('changing filter type');
+      console.log(action);
       
+      return state
+        .set('filterType', action.filterType)
+      
+    case FILTER_TRANSACTIONS:
+      
+      return state
+        .set('transactionFilter', action.filter)
       
     default:
       return state;

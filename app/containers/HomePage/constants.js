@@ -9,5 +9,7 @@
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
 
-export const CHANGE_USERNAME = 'react-redux-transactions/Home/CHANGE_USERNAME';
+export const FILTER_TRANSACTIONS = 'react-redux-transactions/Home/FILTER_TRANSACTIONS';
+export const CHANGE_FILTERTYPE = 'react-redux-transactions/Home/CHANGE_FILTERTYPE';
 export const TOGGLE_EMOTIONBAR = 'react-redux-transactions/Home/TOGGLE_EMOTIONBAR';
+export const FILTERS_CREATED = 'react-redux-transactions/Home/FILTERS_CREATED';

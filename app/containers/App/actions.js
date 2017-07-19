@@ -12,11 +12,11 @@ import {
   LOAD_TRANSACTIONS,
   LOAD_TRANSACTIONS_SUCCESS,
   LOAD_TRANSACTIONS_ERROR,
-  CHANGE_EMOTION
+  CHANGE_EMOTION,
 } from './constants';
 
 /**
- * Load the repositories, this action starts the request saga
+ * Load the transactions, this action starts the request saga
  *
  * @return {object} An action object with a type of LOAD_TRANSACTIONS
  */

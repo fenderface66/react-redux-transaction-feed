@@ -3,8 +3,8 @@ import styled from 'styled-components';
 
 const EmotionBarStyle = styled.div`
   position: absolute;
-  top: 105%;
-  right: 54px
+  top: 110%;
+  right: 35px;
   z-index: 9;
   background-color: #DDDDDD;
   border-radius: 2px;

@@ -10,20 +10,24 @@
 
 import {
   CHANGE_USERNAME,
-  TOGGLE_EMOTIONBAR
+  TOGGLE_EMOTIONBAR,
+  FILTER_TRANSACTIONS,
+  CHANGE_FILTERTYPE,
+  FILTERS_CREATED
 } from './constants';
 
-/**
- * Changes the input field of the form
- *
- * @param  {name} name The new text of the input field
- *
- * @return {object}    An action object with a type of CHANGE_USERNAME
- */
-export function changeUsername(name) {
+
+export function filterTransactions(filter) {
   return {
-    type: CHANGE_USERNAME,
-    name,
+    type: FILTER_TRANSACTIONS,
+    filter,
+  };
+}
+
+export function changeFilterType(filterType) {
+  return {
+    type: CHANGE_FILTERTYPE,
+    filterType,
   };
 }
 
