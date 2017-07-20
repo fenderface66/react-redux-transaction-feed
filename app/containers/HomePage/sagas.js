@@ -59,7 +59,6 @@ export function* filterTransactions() {
   const filterType = yield select(makeSelectFilterType());
   const filter = yield select(makeSelectTransactionFilter());
   
-  
   transactions.map((transaction) => {
     var lowercase;  
     switch (filterType) {

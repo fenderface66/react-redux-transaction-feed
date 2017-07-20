@@ -9,8 +9,8 @@
  */
 
 import {
-  CHANGE_USERNAME,
   TOGGLE_EMOTIONBAR,
+  TOGGLE_NOTECONTAINER,
   FILTER_TRANSACTIONS,
   CHANGE_FILTERTYPE,
   FILTERS_CREATED
@@ -47,5 +47,14 @@ export function toggleEmotionBar(item_id, force) {
     type: TOGGLE_EMOTIONBAR,
     item_id,
     force
+  };
+}
+
+export function toggleNoteContainer(note, force, id) {
+  return {
+    type: TOGGLE_NOTECONTAINER,
+    note,
+    force,
+    id
   };
 }

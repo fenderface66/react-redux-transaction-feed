@@ -12,8 +12,8 @@
 import { fromJS } from 'immutable';
 
 import {
-  CHANGE_USERNAME,
   TOGGLE_EMOTIONBAR,
+  TOGGLE_NOTECONTAINER,
   FILTER_TRANSACTIONS,
   CHANGE_FILTERTYPE,
   FILTERS_CREATED
@@ -28,15 +28,16 @@ const initialState = fromJS({
     id: '',
     toggleState: false
   },
+  showNoteContainer: {
+    note: '',
+    toggleState: false,
+    id: ''
+  },
   fitleredItems: []
 });
 
 function homeReducer(state = initialState, action) {
   switch (action.type) {
-    case CHANGE_USERNAME:
-
-      return state
-        .set('username', action.name.replace(/@/gi, ''));
     case TOGGLE_EMOTIONBAR:
       console.log(state.getIn(['showEmotionBar', 'toggleState']));
       
@@ -48,6 +49,20 @@ function homeReducer(state = initialState, action) {
         return state
           .setIn(['showEmotionBar', 'id'], action.item_id)
           .setIn(['showEmotionBar', 'toggleState'], !state.getIn(['showEmotionBar', 'toggleState']));
+      }
+    case TOGGLE_NOTECONTAINER:
+      console.log(state.get('showNoteContainer')) ;
+      
+      if (action.force !== undefined) {
+        return state
+          .setIn(['showNoteContainer', 'note'], action.note)
+          .setIn(['showNoteContainer', 'toggleState'], action.force)
+          .setIn(['showNoteContainer', 'id'], action.id);
+      } else {
+        return state
+          .setIn(['showNoteContainer', 'note'], action.id)
+          .setIn(['showNoteContainer', 'toggleState'], !state.getIn(['showNoteContainer', 'toggleState']))
+          .setIn(['showNoteContainer', 'id'], action.id);
       }
       
     case CHANGE_FILTERTYPE:

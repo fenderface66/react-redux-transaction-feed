@@ -21,7 +21,7 @@
   "boilerplate.containers.FeaturePage.state_management.header": "Predictable state management",
   "boilerplate.containers.FeaturePage.state_management.message": "Unidirectional data flow allows for change logging and time travel\n    debugging.",
   "boilerplate.containers.HomePage.start_project.header": "Transactions Feed",
-  "boilerplate.containers.HomePage.start_project.message": "A highly scalable, offline-first foundation with the best DX and a focus on performance and best practices",
+  "boilerplate.containers.HomePage.start_project.message": "Below you can search, filter and update your transactions.",
   "boilerplate.containers.HomePage.tryme.atPrefix": "@",
   "boilerplate.containers.HomePage.tryme.header": "Filters!",
   "boilerplate.containers.HomePage.tryme.message": "Filter transactions by description",

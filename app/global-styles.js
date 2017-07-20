@@ -43,7 +43,7 @@ injectGlobal`
     height: 0;
     border-style: solid;
     border-width: 0 15px 15px 15px;
-    border-color: transparent transparent #DDDDDD transparent;
+    border-color: transparent transparent #f4f4f4 transparent;
     position: absolute;
     top: -15px;
     left: 50%;

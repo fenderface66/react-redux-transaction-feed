@@ -12,4 +12,5 @@
 export const FILTER_TRANSACTIONS = 'react-redux-transactions/Home/FILTER_TRANSACTIONS';
 export const CHANGE_FILTERTYPE = 'react-redux-transactions/Home/CHANGE_FILTERTYPE';
 export const TOGGLE_EMOTIONBAR = 'react-redux-transactions/Home/TOGGLE_EMOTIONBAR';
+export const TOGGLE_NOTECONTAINER = 'react-redux-transactions/Home/TOGGLE_NOTECONTAINER';
 export const FILTERS_CREATED = 'react-redux-transactions/Home/FILTERS_CREATED';

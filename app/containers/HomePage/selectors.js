@@ -31,11 +31,23 @@ const makeSelectShowEmotionBar = () => createSelector(
   }
 );
 
+const makeSelectShowNoteContainer = () => createSelector(
+  selectHome,
+  (homeState) => {
+    return {
+      note: homeState.getIn(['showNoteContainer', 'note']),
+      toggleState: homeState.getIn(['showNoteContainer', 'toggleState']),
+      id: homeState.getIn(['showNoteContainer', 'id'])
+    }
+  }
+);
+
 export {
   selectHome,
   makeSelectUsername,
   makeSelectShowEmotionBar,
   makeSelectTransactionFilter,
   makeSelectFilterType,
-  makeSelectFilteredItems
+  makeSelectFilteredItems,
+  makeSelectShowNoteContainer 
 };

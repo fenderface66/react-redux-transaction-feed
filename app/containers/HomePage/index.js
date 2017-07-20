@@ -44,7 +44,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       case 'description':
         return(
           <fieldset>
-          <FormattedMessage {...messages.trymeMessage} />
+            <label>Filter transactions by description:</label>
 
             <Input
               id="description-filter"
@@ -60,13 +60,13 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       case 'emotion':
         return (
           <fieldset>
-            <label>Select an Emotion</label>
+            <label>Select an Emotion:</label>
             <SelectInput name="emotion-filter" onChange={this.props.onfilterTransactions}>
               <option value='all'>Please Select Emotion</option>
               <option value="love">Love</option>
               <option value="hate">Hate</option>
               <option value="joy">Joy</option>
-              <option value="surpirse">Surprise</option>
+              <option value="surprise">Surprise</option>
             </SelectInput>
           </fieldset>
         )
@@ -93,7 +93,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
                     <option value="love">Love</option>
                     <option value="hate">Hate</option>
                     <option value="joy">Joy</option>
-                    <option value="surpirse">Surprise</option>
+                    <option value="surprise">Surprise</option>
                   </SelectInput>
                 </fieldset>
                 <input type="submit" value="Filter" />
@@ -127,18 +127,15 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
             <H2>
               <FormattedMessage {...messages.startProjectHeader} />
             </H2>
-            <p>
+            <p className="header-des">
               <FormattedMessage {...messages.startProjectMessage} />
             </p>
           </CenteredSection>
           <Section>
-            <H2>
-              <FormattedMessage {...messages.trymeHeader} />
-            </H2>
             <Form>
                 
                 <fieldset>
-                  <label>Select a filter type</label>
+                  <label>Select a filter type:</label>
                   <SelectInput name="filter-type" onChange={this.props.onChangeFilterType}>
                     <option value="description">Description</option>
                     <option value="emotion">Emotion</option>

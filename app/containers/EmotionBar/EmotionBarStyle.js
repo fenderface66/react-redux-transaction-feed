@@ -4,9 +4,10 @@ import styled from 'styled-components';
 const EmotionBarStyle = styled.div`
   position: absolute;
   top: 110%;
-  right: 35px;
+  right: 4px;     
+  
   z-index: 9;
-  background-color: #DDDDDD;
+  background-color: #f4f4f4;
   border-radius: 2px;
   transform: scale(0);
   transition: .2s;
@@ -52,7 +53,9 @@ const EmotionBarStyle = styled.div`
     cursor:pointer;
     padding-bottom: 6px;
   }
-}
+  @media (min-width: 450px) {
+    right: 37px;
+  }
 
 `;
 
